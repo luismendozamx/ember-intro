@@ -179,7 +179,7 @@ this.store.findAll('todo');
           <p><code>/todos/:todo_id</code></p>
 <pre><code data-trim data-noescape class="hljs javascript">
 Router.map(function() {
-  this.route('todo', function() {
+  this.route('todos', function() {
     this.route('show', {path: ':todo_id'});
   });
 });
@@ -211,11 +211,10 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   model() {
     return this.store.findAll('todo');
+    // alternativamente: return $.getJSON('...') o $.ajax('...');
   },
 
-  beforeModel() {
-    // código ejecutado antes de resolver el modelo
-  },
+  beforeModel() { /* código ejecutado antes de resolver el modelo */ },
 
   actions: {
     updateTodo(todo) {
@@ -273,11 +272,7 @@ export default Ember.Component.extend({
 
   actions: {
     saveTodo(todo) {
-      todo.save().then(() => {
-        // success
-      }, () => {
-        // error
-      });
+      this.sendAction('saveTodo', todo);
     }
   }
 });
@@ -297,11 +292,28 @@ export default Ember.Component.extend({
 
           <section>
             <h3>Componentes</h3>
-            <p>Uso del componente</p>
 <pre><code data-trim data-noescape class="hljs handlebars">
 {{! templates/todos/index.hbs }}
+{{add-todo-form todo=model saveTodo='saveTodo'}}
+</code></pre>
 
-{{add-todo-form todo=model}}
+<pre><code data-trim data-noescape class="hljs javascript">
+// routes/todos/index.js
+...
+model() {
+ this.store.createRecord('todo', { completed: false });
+},
+
+actions: {
+  saveTodo(todo) {
+    todo.save().then(() => {
+      // success
+    }, () => {
+      // error
+    });
+  }
+}
+...
 </code></pre>
           </section>
         </section>
@@ -314,6 +326,14 @@ export default Ember.Component.extend({
         <section>
           <h3><a href="http://builtwithember.io/" target="_blank">¿Quién está usando Ember?</a></h3>
           <img data-src="img/logos.png" width="700"/>
+        </section>
+
+        <section>
+          <h1>Conclusión</h1>
+          <p>Poderoso y completo.</p>
+          <p>Fuertes convenciones.</p>
+          <p>Estable, buena comunidad y muy buena documentación.</p>
+          <p>Sigue las mejores prácticas y aprende de otros.</p>
         </section>
 
         <section>
