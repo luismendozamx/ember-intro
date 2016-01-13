@@ -32,6 +32,12 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+
+    <style>
+      .reveal pre code{
+        padding: 20px;
+      }
+    </style>
   </head>
 
   <body>
@@ -82,16 +88,16 @@
 
         <section>
           <h2>Principios de Diseño</h2>
-          <p>Antes MVC, ahora MRC<sup>*</sup></p>
+          <p>Antes MVC, ahora MRCC<sup>*</sup></p>
           <p><a href="https://www.youtube.com/watch?v=OSEXpsVcTxI&feature=youtu.be" target="_blank">Centrado en el URL</a></p>
           <p>Convention Over Configuration</p>
 
-          <small>* MRC es un término mío, no es oficial</small>
+          <small>* MRCC es un término mío, no es oficial</small>
         </section>
 
         <section>
           <section>
-            <h2>De <br>MVC: Modelo - Vista - Controlador<br>a<br>MRC: Modelo - Ruta - Componente</h2>
+            <h2>De <br>MVC: Modelo - Vista - Controlador<br>a<br>MRCC: Modelo - Ruta - Controlador - Componente</h2>
           </section>
 
           <section data-transition="none">
@@ -109,18 +115,212 @@
           </section>
 
           <section data-transition="none">
-            <h2>MRC: Modelo - Ruta - Componente</h2>
+            <h2>MRCC: Modelo - Ruta - Controlador - Componente</h2>
             <p>Influencia de React y Web Components</p>
           </section>
 
           <section data-transition="none">
-            <h2>MRC: Modelo - Ruta - Componente</h2>
+            <h2>MRCC: Modelo - Ruta - Controlador - Componente</h2>
             <p><strong>Ventajas:</strong> Reutilizable, aislado, menos redundate, menos confuso, más fácil de mantener.</p>
           </section>
         </section>
 
         <section>
-          <h2>MRC: Modelo - Ruta - Componente</h2>
+          <h2>Modelo - Ruta - Controlador - Componente</h2>
+          <img data-src="img/MRC.png" alt="" width="500">
+        </section>
+
+        <section>
+          <h3>El Ecosistema de Ember.js</h3>
+          <p>ember-data</p>
+          <p>ember-cli</p>
+          <p>ember-inspector</p>
+        </section>
+
+        <section>
+          <h3>ember-cli</h3>
+          <p>Utilidad de línea de comandos para el desarrollo</p>
+<pre><code data-trim data-noescape class="hljs bash">
+$ ember new todo-app
+$ ember generate model todo
+$ ember serve
+$ ember build
+</code></pre>
+        </section>
+
+        <section>
+          <h3>ember-data</h3>
+          <p>Utilizada para manejar la información y estado de los modelos.</p>
+<pre><code data-trim data-noescape class="hljs javascript">
+// Model
+var todo = DS.Model.extend({
+  title: DS.attr('string'),
+  completed: DS.attr('booolean')
+});
+
+// Store
+this.store.findAll('todo');
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Arquitectura de Ember</h3>
+          <p>Router</p>
+          <p>Modelos</p>
+          <p>Rutas</p>
+          <p>Controladores</p>
+          <p>Templates</p>
+          <p>Componentes</p>
+        </section>
+
+        <section>
+          <h3>Router</h3>
+          <p><code>/todos</code></p>
+          <p><code>/todos/:todo_id</code></p>
+<pre><code data-trim data-noescape class="hljs javascript">
+Router.map(function() {
+  this.route('todo', function() {
+    this.route('show', {path: ':todo_id'});
+  });
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Modelos</h3>
+<pre><code data-trim data-noescape class="hljs javascript">
+// models/todo.js
+import DS from 'ember-data';
+
+export default DS.Model.extend({
+  title: DS.attr('string'),
+  completed: DS.attr('boolean'),
+  description: DS.attr('string'),
+
+  list: DS.belongsTo('list')
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Ruta</h3>
+<pre><code data-trim data-noescape class="hljs javascript">
+// routes/todos/index.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+  model() {
+    return this.store.findAll('todo');
+  },
+
+  beforeModel() {
+    // código ejecutado antes de resolver el modelo
+  },
+
+  actions: {
+    updateTodo(todo) {
+      todo.save();
+    }
+  }
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Controlador</h3>
+          <p><code>/todos?page=1&#38;sort=createdAt</code></p>
+<pre><code data-trim data-noescape class="hljs javascript">
+// controllers/todos/index.js
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  queryParams: ['page', 'sort'],
+  page: 1,
+  sort: 'createdAt',
+  asc: false,
+
+  actions: {
+    toggleSortDirection() {
+      this.toggleProperty('asc');
+    }
+  }
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Templates</h3>
+<pre><code data-trim data-noescape class="hljs handlebars">
+{{! templates/todos/index.hbs }}
+
+{{#each model as |todo|}}
+  <&zwj;div>
+    <&zwj;p>{{todo.title}}<&zwj;/p>
+  <&zwj;/div>
+{{/each}}
+</code></pre>
+        </section>
+
+        <section>
+            <section>
+            <h3>Componentes</h3>
+<pre><code data-trim data-noescape class="hljs javascript">
+// components/add-todo-form.js
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+  todo: null,
+
+  actions: {
+    saveTodo(todo) {
+      todo.save().then(() => {
+        // success
+      }, () => {
+        // error
+      });
+    }
+  }
+});
+</code></pre>
+          </section>
+
+          <section>
+            <h3>Componentes</h3>
+<pre><code data-trim data-noescape class="hljs handlebars">
+{{! templates/components/add-todo-form.hbs }}
+
+<&zwj;form {{action 'saveTodo' todo on='submit'}}>
+  {{input value=todo.title}}
+<&zwj;/form>
+</code></pre>
+          </section>
+
+          <section>
+            <h3>Componentes</h3>
+            <p>Uso del componente</p>
+<pre><code data-trim data-noescape class="hljs handlebars">
+{{! templates/todos/index.hbs }}
+
+{{add-todo-form todo=model}}
+</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Demo</h1>
+          <p>Source: <a href="https://github.com/luismendozamx/todo-list-client" target="_blank">Cliente</a> | <a href="https://github.com/luismendozamx/todo-list-api" target="_blank">API</a></p>
+        </section>
+
+        <section>
+          <h3>¿Quién está usando Ember?</h3>
+        </section>
+
+        <section>
+          <h1>¡Gracias!</h1>
+          <p><a href="http://mendoza.io" target="_blank">mendoza.io</a></p>
+          <p><a href="http://github.com/luismendozamx" target="_blank">github.com/luismendozamx</a></p>
+          <p><a href="http://instagram.com/luismendozamx" target="_blank">instagram.com/luismendozamx</a></p>
+          <p><a href="http://twitter.com/luismendozamx" target="_blank">twitter.com/luismendozamx</a></p>
         </section>
 
       </div>
