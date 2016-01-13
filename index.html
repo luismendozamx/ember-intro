@@ -56,19 +56,42 @@
 
         <section>
           <h1>¿Por qué tantos frameworks JS?</h1>
+          <aside class="notes">
+            <ul>
+              <li>Muy confuso</li>
+              <li>Angular, React, Backbone, Ember, Ploymer, etc</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <h1>Server-Side rendering no siempre funciona</h1>
+          <aside class="notes">
+            <ul>
+              <li>De ninguna manera ha muerto, pero hay veces que no funciona</li>
+              <li>Necesidad de nuevas alternativas</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <h1>Client-Side es lo de hoy</h1>
+          <aside class="notes">
+            <ul>
+              <li>Necesidad de un solo API para móviles y web.</li>
+              <li>Mejores conexiones. Más soporte a JS y mejores navegadores.</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <h2>Hola</h2>
           <img data-src="img/tomster.svg" alt="" width="500">
+          <aside class="notes">
+            <ul>
+              <li>Tomster. El único framework con mascota</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -93,11 +116,25 @@
           <p>Convention Over Configuration</p>
 
           <small>* MRCC es un término mío, no es oficial</small>
+
+          <aside class="notes">
+            <ul>
+              <li>Ha cambiado de MVC a MRCC</li>
+              <li>Se debe respetar las url.</li>
+              <li>Stop breaking the web, plática de Tom Dale</li>
+              <li>Principio de COC. No es para todos.</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <section>
             <h2>De <br>MVC: Modelo - Vista - Controlador<br>a<br>MRCC: Modelo - Ruta - Controlador - Componente</h2>
+            <aside class="notes">
+              <ul>
+                <li>Transición de MVC a MRCC</li>
+              </ul>
+            </aside>
           </section>
 
           <section data-transition="none">
@@ -112,6 +149,13 @@
             <p><strong>Template:</strong> Definición de markup</p>
             <p><strong>Controlador:</strong> Conexión entre datos y template</p>
             <p><strong>Vista:</strong> Conexión al DOM y manejo de eventos</p>
+            <aside class="notes">
+              <ul>
+                <li>Demasiados pedazos y tareas poco definidas</li>
+                <li>Además agregar componentes</li>
+                <li>El primero en desaparecer fue la vista</li>
+              </ul>
+            </aside>
           </section>
 
           <section data-transition="none">
@@ -135,6 +179,11 @@
           <p>ember-data</p>
           <p>ember-cli</p>
           <p>ember-inspector</p>
+          <aside class="notes">
+            <ul>
+              <li>Varios pedazos, no solo ember</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -161,6 +210,13 @@ var todo = DS.Model.extend({
 // Store
 this.store.findAll('todo');
 </code></pre>
+          <aside class="notes">
+            <ul>
+              <li>Librería adicional, no es necesaria.</li>
+              <li>Maneja la información. El estado de los objetos y sus propiedades.</li>
+              <li>Maneja la comunicación con el servidor a través de Adapter/Serializer</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -176,11 +232,13 @@ this.store.findAll('todo');
         <section>
           <h3>Router</h3>
           <p><code>/todos</code></p>
+          <p><code>/todos/new</code></p>
           <p><code>/todos/:todo_id</code></p>
 <pre><code data-trim data-noescape class="hljs javascript">
 Router.map(function() {
   this.route('todos', function() {
-    this.route('show', {path: ':todo_id'});
+    this.route('new', { path: '/new' });
+    this.route('show', {path: '/:todo_id'});
   });
 });
 </code></pre>
@@ -293,12 +351,12 @@ export default Ember.Component.extend({
           <section>
             <h3>Componentes</h3>
 <pre><code data-trim data-noescape class="hljs handlebars">
-{{! templates/todos/index.hbs }}
+{{! templates/todos/new.hbs }}
 {{add-todo-form todo=model saveTodo='saveTodo'}}
 </code></pre>
 
 <pre><code data-trim data-noescape class="hljs javascript">
-// routes/todos/index.js
+// routes/todos/new.js
 ...
 model() {
  this.store.createRecord('todo', { completed: false });
