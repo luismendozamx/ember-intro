@@ -54,13 +54,10 @@
 
         <section>
           <h1>Server-Side rendering no siempre funciona</h1>
-          <p>AJAX nightmare, difícil de mantener, UI's complejos, múltiples clientes, etc...</p>
         </section>
 
         <section>
           <h1>Client-Side es lo de hoy</h1>
-          <p>Un solo API para móviles, desktop y web.</p>
-          <p>Mejores dispositivos, conexiones y soporte de JavaScript</p>
         </section>
 
         <section>
@@ -72,8 +69,8 @@
           <h2>Un poco de historia</h2>
 
           <p>Originalmente SproutCore 2.0</p>
-          <p>Creado por <a href="https://github.com/wycats" target="_blank">Yehuda Katz</a> y <a href="https://github.com/tomdale" target="_blank">Tom Dale</a></p>
-          <p>Versión actual: 2.2.0</p>
+          <p>Creado por <a href="https://github.com/wycats" target="_blank">Yehuda Katz</a> y <a href="https://github.com/tomdale" target="_blank">Tom Dale</a> en 2011</p>
+          <img data-src="img/ember-github.png" alt="">
 
           <aside class="notes">
             <ul>
@@ -86,26 +83,39 @@
         <section>
           <h2>Principios de Diseño</h2>
           <p>Antes MVC, ahora MRC<sup>*</sup></p>
-          <p>Centrado en el URL</p>
+          <p><a href="https://www.youtube.com/watch?v=OSEXpsVcTxI&feature=youtu.be" target="_blank">Centrado en el URL</a></p>
           <p>Convention Over Configuration</p>
-          <p>Stability without stagnation</p>
 
           <small>* MRC es un término mío, no es oficial</small>
         </section>
 
         <section>
           <section>
-            <h2>MVC: Modelo - Vista - Controlador</h2>
-            <p>Se volvió cada vez más complejo.</p>
+            <h2>De <br>MVC: Modelo - Vista - Controlador<br>a<br>MRC: Modelo - Ruta - Componente</h2>
           </section>
 
-          <section>
+          <section data-transition="none">
+            <h2>MVC: Modelo - Vista - Controlador</h2>
+            <p><strong>Problema:</strong> Se volvio complejo y difícil de escalar.</p>
+          </section>
+
+          <section data-transition="none">
             <h2>MVC: Modelo - Vista - Controlador</h2>
             <p><strong>Modelo:</strong> Representación de datos</p>
             <p><strong>Ruta:</strong> Cargar modelo, vista y controlador</p>
             <p><strong>Template:</strong> Definición de markup</p>
             <p><strong>Controlador:</strong> Conexión entre datos y template</p>
             <p><strong>Vista:</strong> Conexión al DOM y manejo de eventos</p>
+          </section>
+
+          <section data-transition="none">
+            <h2>MRC: Modelo - Ruta - Componente</h2>
+            <p>Influencia de React y Web Components</p>
+          </section>
+
+          <section data-transition="none">
+            <h2>MRC: Modelo - Ruta - Componente</h2>
+            <p><strong>Ventajas:</strong> Reutilizable, aislado, menos redundate, menos confuso, más fácil de mantener.</p>
           </section>
         </section>
 
