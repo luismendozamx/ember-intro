@@ -66,26 +66,6 @@
         </section>
 
         <section>
-          <h1>Server-Side rendering no siempre funciona</h1>
-          <aside class="notes">
-            <ul>
-              <li>De ninguna manera ha muerto, pero hay veces que no funciona</li>
-              <li>Necesidad de nuevas alternativas</li>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h1>Client-Side es lo de hoy</h1>
-          <aside class="notes">
-            <ul>
-              <li>Necesidad de un solo API para móviles y web.</li>
-              <li>Mejores conexiones. Más soporte a JS y mejores navegadores.</li>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
           <h2>Hola</h2>
           <img data-src="img/tomster.svg" alt="" width="500">
           <aside class="notes">
@@ -203,7 +183,7 @@ $ ember build
           <p>Utilizada para manejar la información y estado de los modelos.</p>
 <pre><code data-trim data-noescape class="hljs javascript">
 // Model
-var todo = DS.Model.extend({
+const todo = DS.Model.extend({
   title: DS.attr('string'),
   completed: DS.attr('booolean')
 });
